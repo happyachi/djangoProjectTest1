@@ -1,0 +1,19 @@
+<!-- learning.html -->
+{% extends 'learning_base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    {% for post in test_post %}
+        <h1>{{ post.lesson_title }}</h1>
+        {{ post.lesson_article |safe}}
+        <br>
+    {% empty %}
+        <p>"課程內容待建置"</p>
+    {% endfor %}
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+    <br>
+{% endblock %}

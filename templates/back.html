@@ -1,0 +1,26 @@
+<!-- back.html -->
+{% extends 'base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h1>後臺管理</h1>
+    <br>
+    <br>
+    <a href="{% url 'creat_user-url' %}">新增使用者</a>
+    建立每個人的gmail、名稱、代號、使否啟用，啟用時間、終止時間
+    <br>
+    <br>
+    <a href="">權限管理</a>
+    可設定每個人可以瀏覽、編輯之項目的權限
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+{% endblock %}

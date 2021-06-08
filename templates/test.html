@@ -1,0 +1,8 @@
+{{ ppp }}
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+
+remark_done = {{ remark_done }}
+<br>
+remark_bao_done = {{ remark_bao_done }}

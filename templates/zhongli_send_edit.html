@@ -1,0 +1,121 @@
+<!-- transfer.html -->
+{% extends 'transfer_base.html' %}
+{% block title %} 編輯代寄 {% endblock %}
+{% block content %}
+    <h3>編輯代寄  </h3>
+
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+{% for p in zhongli_send %}
+    <table class="table table-hover">
+        <tr style="background-color: #e2e2e2">
+            <th>分店</th>
+            <td>{{ p.shop_a_name_from }}</td>
+        </tr>
+        <tr style="background-color: #efefef">
+            <th>訂貨單號</th>
+            <td>{{ p.order_sheet_number }}</td>
+        </tr>
+        <tr style="background-color: #e2e2e2">
+            <th>退單時間</th>
+            <td>{{ p.shop_a_time|date:'m/d' }}</td>
+        </tr>
+        <tr style="background-color: #efefef">
+            <th>分店處理人</th>
+            <td>{{ p.shop_a_staff }}</td>
+        </tr>
+    <hr>
+    <form name="zhongli_send_edit_form" action="." method="post">
+        {% csrf_token %}
+            <tr>
+                <th><label for="service_staff">中壢處理人</label></th>
+                <td><input id="service_staff" type="text" name="service_staff" value="{{ p.service_staff|default_if_none:"" }}"></td>
+            </tr>
+            <!--
+            <tr>
+                <th><label for="service_time">處理日期</label></th>
+                <td><input id="service_time" type="datetime-local" name="service_time" value="{{ p.service_time }}"></td>
+            </tr>
+            -->
+            <tr>
+                <th><label for="sell_sheet_number">銷售單號</label></th>
+                <td><input id="sell_sheet_number" type="text" name="sell_sheet_number" value="{{ p.sell_sheet_number|default_if_none:"" }}"></td>
+            </tr>
+            <tr>
+                <th><label for="send_sheet_number">託運單號</label></th>
+                <td><input id="send_sheet_number" type="text" name="send_sheet_number" value="{{ p.send_sheet_number|default_if_none:"" }}"></td>
+            </tr>
+            <tr>
+                <th><label for="remark">備註</label></th>
+                <td><textarea id="remark" name="remark" rows="5" cols="30">{{ p.remark }}</textarea></td>
+            </tr>
+            <tr>
+                <th><label for="done">處理狀態</label></th>
+                <td>
+                    <select id="done"  name="done" >
+                        <option value="已處理" {% if p.done == '已處理' %} selected="selected" {% endif %}>已處理</option>
+                        <option value="未處理" {% if p.done == '未處理' %} selected="selected" {% endif %}>未處理</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <input type="submit" value="儲存">
+                    <input type="reset" value="清除重填">
+
+                </th>
+            </tr>
+
+    </form>
+    </table>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="location.href='{% url 'transfer-url' %}'" >
+        <a>←←回調貨區←←</a>
+    </button>
+    <br>
+    <br>
+    <br>
+    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete" >
+        <a  style="color: white"><span class="bi bi-trash"></span>刪除表單<span class="bi bi-trash"></span></a>
+    </button>
+    <div class="modal fade" id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">刪除表單</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>你確定要刪除 訂貨單：{{ p.order_sheet_number }}   的表單嗎？</p>
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        取消
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.href='{% url 'zhongli-send-edit-delete-url'  p.order_sheet_number  %}'">
+                        確定
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+    <br>
+
+    <br>
+{% endblock %}
+

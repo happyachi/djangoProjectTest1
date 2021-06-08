@@ -1,0 +1,25 @@
+<!-- transfer.html -->
+{% extends 'transfer_base.html' %}
+{% block title %} 新增銷退單 {% endblock %}
+{% block content %}
+    <h3>我要退貨</h3>
+    <br>
+    <form name="transfer_from" action="." method="post">
+        {% csrf_token %}
+        <table>
+            {{ transfer_goods_add_form.as_table }}
+        </table>
+        <input type="submit" value="新增">
+        <input type="reset" value="清除重填">
+    </form>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="location.href='{% url 'transfer-url' %}'" >
+        <a>←←回調貨區←←</a>
+    </button>
+    <br>
+{% endblock %}

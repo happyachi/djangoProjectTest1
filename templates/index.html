@@ -1,0 +1,41 @@
+<!-- index.html -->
+{% extends 'base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h1 class="text-center">探險家族入口網</h1>
+    <h5 class="text-center">哈囉！{{ username }}夥伴，今天想要做什麼呢？</h5>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="box1 col-12 col-lg-6">
+                <div class="card text-center border border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title">行政區</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">行政區就是行政區，快速完成，去忙別的吧！</p>
+                        <a href="{% url 'order-goods-url' %}" class="btn btn-primary">分店訂貨</a>
+                        <a href="{% url 'transfer-url' %}" class="btn btn-primary">分店調貨</a>
+                        <a href="{% url 'zhongli-send-url' %}" class="btn btn-primary">中壢代寄</a>
+                        <a href="{% url 'zhongli-car-url' %}" class="btn btn-primary">中壢派車</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div class="box1 col-12 col-lg-6">
+                <div class="card text-center border border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title">學習區</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">快來學習，讓自己變得更強大吧！</p>
+                        <a href="{% url 'learning-subject-url' 'product-knowledge' %}" class="btn btn-info">商品知識</a>
+                        <a href="{% url 'learning-subject-url' 'staff-knowledge' %}" class="btn btn-info">職務知識</a>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

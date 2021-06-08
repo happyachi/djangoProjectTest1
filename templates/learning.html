@@ -1,0 +1,47 @@
+<!-- learning.html -->
+{% extends 'learning_base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h1 class="text-center">探險家族學習網</h1>
+    <h5 class="text-center">哈囉！{{ username }}夥伴，今天想要學什麼呢？</h5>
+    <br>
+    <div class="container">
+        <div class="row">
+            {% for s in subject %}
+            <div class="box1 col-12 col-lg-6">
+                <div class="card text-center border {% cycle 'border-primary' 'border-info' %}">
+                    <div class="card-header {% cycle 'bg-primary' 'bg-info' %} text-white">
+                        <h5 class="card-title">{{ s.subject_title }}</h5>
+                    </div>
+                    <div class="card-body">
+                    {% if s.subject_title == '商品知識' %}
+                        <p class="card-text">快來認識各式商品，成為露營知識家吧！</p>
+                    {% elif s.subject_title == '職務知識' %}
+                        <p class="card-text">來精進職務技能吧！</p>
+                    {% else %}
+                    {% endif %}
+                        {% for t in topical %}
+                            {% if t.subject_title.subject_title == s.subject_title %}
+                                {% if s.subject_title == '商品知識' %}
+                                    <a href="{% url 'learning-class-url' s.subject_url t.topical_url %}" class="btn btn-primary">{{ t.topical_title }}</a>
+                                {% elif s.subject_title == '職務知識' %}
+                                    <a href="{% url 'learning-class-url' s.subject_url t.topical_url %}" class="btn btn-info">{{ t.topical_title }}</a>
+                                {% else %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+    <br>
+{% endblock %}

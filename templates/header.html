@@ -1,0 +1,47 @@
+<!-- header.html -->
+
+<div id="header" class="header">
+<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'home-url' %}">探險家族Beta</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="{% url 'news-url' %}">公告</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    行政區
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'order-goods-url' %}">分店訂貨</a>
+                    <a class="dropdown-item" href="{% url 'transfer-url' %}">分店調貨</a>
+                    <a class="dropdown-item" href="{% url 'zhongli-send-url' %}">中壢代寄</a>
+                    <a class="dropdown-item" href="{% url 'zhongli-car-url' %}">中壢派車</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item disabled" href="">報價單</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'learning-url' %}">學習</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'back-url' %}">後臺管理</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout-url' %}">登出</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">登入</a></li>
+            <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">待開發區域(維修)</a></li>
+        </ul>
+
+    <div class="dropdown text-end  ">
+        <a href="#" class="dropdown-toggle" id="dropdownUser1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu text-small filer-dropdown dropdown-menu-left" aria-labelledby="dropdownUser1" style="">
+          <li><a class="dropdown-item" href="#">New project...</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Sign out</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+</div>
+</nav>

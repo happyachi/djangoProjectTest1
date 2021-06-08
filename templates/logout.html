@@ -1,0 +1,16 @@
+<!-- logout.html -->
+{% extends 'base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h1>
+        已經登出囉
+    </h1>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+    <a href="{% url 'login-url' %}">登入</a>
+    <br>
+    <br>
+{% endblock %}

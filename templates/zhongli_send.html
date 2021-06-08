@@ -1,0 +1,89 @@
+<!-- zhongli_send.html -->
+{% extends 'transfer_base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h1>中壢代寄</h1>
+    <br>
+    <button class="btn btn-primary" onclick="location.href='{% url 'zhongli-send-add-url' %}'">
+        新增請中壢代寄
+    </button>
+    <br>
+    <br>
+    <form method='POST'>
+    {% csrf_token %}
+        分店：{{ zhongli_send_filter.form.shop_a_name_from }}
+        狀態：{{ zhongli_send_filter.form.done }}
+        訂貨單：{{ zhongli_send_filter.form.order_sheet_number }}
+        銷售單：{{ zhongli_send_filter.form.sell_sheet_number }}
+    <input type="submit" class="btn btn-primary" value="查詢" />
+    </form>
+    <br>
+    <div class="table-responsive-xxl">
+        <table class="table table-sm table-hover ">
+            <thead>
+                <tr class="table-primary">
+                    <td>分店</td>
+                    <td>訂貨單號</td>
+                    <td>處理人</td>
+                    <td>時間</td>
+                    <td>中壢處理人</td>
+                    <td>處理日期</td>
+                    <td>銷售單</td>
+                    <td>託運單號</td>
+                    <td>備註</td>
+                    <td>處理狀態</td>
+                    <td>修改</td>
+                </tr>
+            </thead>
+            {% for p in page %}
+            <tbody>
+                <tr bgcolor="{% cycle '#ffffff' '#ffffff' %}">
+                    <td>{{ p.shop_a_name_from }}</td>
+                    <td>{{ p.order_sheet_number }}</td>
+                    <td>{{ p.shop_a_staff }}</td>
+                    <td>{{ p.shop_a_time|date:'m/d' }}</td>
+                    <td>{{ p.service_staff|default_if_none:"" }}</td>
+                    <td>{{ p.service_time|date:'m/d' }}</td>
+                    <td>{{ p.sell_sheet_number|default_if_none:"" }}</td>
+                    <td>{{ p.send_sheet_number|default_if_none:"" }}</td>
+                    <td style="max-width:150px; max-height:100px; overflow: auto; overflow-y:hidden;"><p>{{ p.remark }}</p></td>
+                    <td>{{ p.done }}</td>
+                    <td>
+                        <a href="{% url 'zhongli-send-edit-url' p.order_sheet_number %}"><span class="bi bi-pencil-square"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    <br>
+    <!--判断是否有上一页，然后拼接关于page的查询字符串-->
+    {% if page.has_previous %}
+    {# 得到上一页的页码编号 #}
+      <a href="{% url 'zhongli-send-url' %}?page={{ page.previous_page_number }}">上一頁</a>
+    {% else %}
+    上一頁
+    {% endif %}
+    {# 在页面范围内循环选择一个页面号码 #}
+    {% for p in paginator.page_range %}
+    {# 如果页面编号等于当前页码序号 #}
+        {% if p == page.number %}
+            {{ p }}
+        {% else %}
+             {# 否则跳转到页码相对应的页面 #}
+            <a href="{% url 'zhongli-send-url' %}?page={{ p }}">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if page.has_next %}
+      <a href="{% url 'zhongli-send-url' %}?page={{ page.next_page_number }}">下一頁</a>
+    {% else %}
+    下一頁
+    {% endif %}
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+{% endblock %}

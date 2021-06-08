@@ -1,0 +1,72 @@
+<!-- transfer.html -->
+{% extends 'transfer_base.html' %}
+{% block title %} 訂單備註區 {% endblock %}
+{% block content %}
+    <h3>
+        訂單備註區
+        <button type="button" class="btn btn-primary btn-sm" onclick="location.href='{% url 'order-goods-url' %}'" >
+            <a>←←回訂貨區←←</a>
+        </button>
+    </h3>
+    <br>
+    <form name="order_goods_remark_filter_form" action="." method='POST'>
+    {% csrf_token %}
+        分店：{{ order_goods_filter.form.shop_a_name_from }}
+        一般備註狀態：{{ order_goods_filter.form.remark_done }}
+        小寶備註狀態：{{ order_goods_filter.form.remark_bao_done }}
+        銷售單：{{ order_goods_filter.form.sell_sheet_number }}
+    <input type="submit" class="btn btn-primary" value="查詢" />
+    </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+            {% for p in page %}
+                <table class="table table-hover">
+                    <form name="order_goods_remark_form" action="." method="GET">
+                    {% csrf_token %}
+                        <tr style="background-color: #e2e2e2">
+                            <th>分店：{{ p.shop_a_name_from }}</th>
+                            <th>銷售單：{{ p.sell_sheet_number|default_if_none:"" }}</th>
+                            <th>處理狀態</th>
+                        </tr>
+                        <tr>
+                            <th><label for="remark">一般備註</label></th>
+                            <td><textarea id="remark" name="remark" rows="5" cols="30">{{ p.remark }}</textarea></td>
+                            <td>
+                                <select id="remark_done"  name="remark_done" >
+                                    <option value="已處理" {% if p.remark_done == '已處理' %} selected="selected" {% endif %}>已處理</option>
+                                    <option value="未處理" {% if p.remark_done == '未處理' %} selected="selected" {% endif %}>未處理</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><label for="remark_bao">小寶備註</label></th>
+                            <td><textarea id="remark_bao" name="remark_bao" rows="5" cols="30">{{ p.remark_bao }}</textarea></td>
+                            <td>
+                                <select id="remark_bao_done"  name="remark_bao_done" >
+                                    <option value="已處理" {% if p.remark_bao_done == '已處理' %} selected="selected" {% endif %}>已處理</option>
+                                    <option value="未處理" {% if p.remark_bao_done == '未處理' %} selected="selected" {% endif %}>未處理</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="d-none" id="order_sheet_number" type="text" name="order_sheet_number" value="{{ p.order_sheet_number }}">
+                            </td>
+                            <td><input type="submit" value="儲存" ></td>
+                        </tr>
+                        </form>
+                </table>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+{% endblock %}
+

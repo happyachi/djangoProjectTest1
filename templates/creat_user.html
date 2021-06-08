@@ -1,0 +1,39 @@
+<!-- creatuser.html -->
+{% extends 'base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h4>目前員工</h4>
+    {% for s in staff %}
+        {% if forloop.first %}
+    <table>
+        <tr><td>姓名</td><td>員工代號</td><td>系統代號</td><td>電子信箱</td><td>是否啟用</td></tr>
+        {% endif %}
+        <tr bgcolor="{% cycle '#eeeeee' '#cccccc' %}"><td>{{ s.staff_name }}</td><td>{{ s.staff_number }}</td><td>{{ s.staff_system_number }}</td><td>{{ s.staff_email }}</td><td>是否啟用</td></tr>
+        {% if forloop.last %}
+    </table>
+        {% endif %}
+    {% empty %}
+        <h3>目前無單</h3>
+    {% endfor %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h4>新增新員工</h4>
+    <form name="creat_user_from" action="." method="post">
+        {% csrf_token %}
+        <table>
+            {{ creat_user_form.as_table }}
+        </table>
+        <input type="submit" value="新增">
+        <input type="reset" value="清除重填">
+    </form>
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+{% endblock %}

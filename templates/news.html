@@ -1,0 +1,16 @@
+<!-- transfer.html -->
+{% extends 'base.html' %}
+{% block title %} 探險家內網 {% endblock %}
+{% block content %}
+    <h1>公告區</h1>
+    <br>改價公告
+    <br>其他公告
+    <br>
+    <br>
+    <br>
+    <br>
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tag }}'>{{ message }}</div>
+    {% endfor %}
+    <br>
+{% endblock %}
